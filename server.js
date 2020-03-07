@@ -8,16 +8,16 @@ app.get('/', (req, res) => {
 	res.send("OK");
 });
 
-app.get('/api/get/:id', (req, res) => {
+app.get('/get/:id', (req, res) => {
 	res.sendFile(__dirname + "/public/" + req.params.id);
 });
 
-app.get('/api/save/:message', (req, res) => {
+app.get('/make/:message', (req, res) => {
 	var message = req.params.message;
 	// TODO: Generate a random filename from a UUID
 	var filename = uuid.v4() + ".wav";
 	var place = path.join(__dirname + "/public/", filename);
-	say.export(message, 'Microsoft David Desktop', 0.75, place, (err) => {
+	say.export(message, 'Microsoft Eva Mobile', 0.75, place, (err) => {
 	  if (err) {
 		res.send(err);
 		return console.error(err)
@@ -28,9 +28,9 @@ app.get('/api/save/:message', (req, res) => {
 	});
 });
 
-app.get('/api/voices', (req, res) => {
-	say.getInstalledVoices(() => {
-		
+app.get('/voices', (req, res) => {
+	say.getInstalledVoices((a) => {
+		res.send(a);
 	});
 });
 
